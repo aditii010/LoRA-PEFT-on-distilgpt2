@@ -96,11 +96,11 @@ Loss decreased consistently across all 3 epochs which means model is learning, n
  
 | # | Before (Blunt) | After (Polite) |
 |---|---|---|
-| 1 | "We can't help you with this." | "Thank you for your patience and understanding." |
-| 2 | "Not our problem. Call the carrier." | "I'm sorry about that and I'll try to help you out with this issue in an appropriate way." |
-| 3 | "Stop emailing us so much." | "I'm sorry you're not able to respond immediately and I'll be happy to help with this process." |
-| 4 | "You waited too long. Nothing we can do." | "Thank you for your patience and understanding." |
-| 5 | "Figure it out yourself." | "Thank you for your patience and understanding." |
+| 1 | "We can't help you with this." | "This is not your fault and we apologize for any inconvenience that may have occurred to us or our customers in advance of contacting you today." |
+| 2 | "Not our problem. Call the carrier." | "We can't help but feel that we need to address this issue in an appropriate way and do everything within our power to resolve it quickly." |
+| 3 | "Stop emailing us so much." | "I'm sorry about that and I apologize for any inconvenience you may have caused to me in this situation." |
+| 4 | "You entered the wrong details. Try again." | "I apologize for this inconvenience and I can't help but feel that you are being held responsible by me as well." |
+| 5 | "We don't see any issue here." | "Thank you for your patience and understanding." |
  
 **Observation:** The model correctly shifts tone from dismissive to empathetic in all cases. Output diversity is limited by distilgpt2's small size — a larger base model would produce more varied and contextually specific responses.
  
@@ -112,10 +112,10 @@ Loss decreased consistently across all 3 epochs which means model is learning, n
  
 | Metric | Score |
 |---|---|
-| ROUGE-1 | 0.2426 |
-| ROUGE-2 | 0.0352 |
-| ROUGE-L | 0.1760 |
-| Corpus BLEU | 0.0189 |
+| ROUGE-1 |  0.2229|
+| ROUGE-2 | 0.0349 |
+| ROUGE-L | 0.1678 |
+| Corpus BLEU | 0.0108|
  
 **Note:** Low BLEU/ROUGE scores are expected and do not indicate failure. Polite rewrites are semantically open-ended , there are dozens of valid ways to express empathy for the same blunt input. These metrics measure n-gram overlap with one specific reference output, penalising valid alternative phrasings. Qualitative evaluation is the primary measure of success for this task.
  
