@@ -5,13 +5,13 @@
 ---
  
 ## Problem Statement
-Convert blunt, rude, or dismissive customer support agent replies into warm, empathetic, and professional responses — while preserving the factual content of the original message.
+Convert blunt, rude, or dismissive customer support agent replies into warm, empathetic, and professional responses , while preserving the factual content of the original message.
 
 ---
  
 ## Approach
  
-Fine-tuned `distilgpt2` using **LoRA (Low-Rank Adaptation)** via HuggingFace PEFT library. LoRA freezes the base model weights and trains only small adapter matrices injected into the attention layers — resulting in ~147K trainable parameters out of 82M total (0.18%).
+Fine-tuned `distilgpt2` using **LoRA (Low-Rank Adaptation)** via HuggingFace PEFT library. LoRA freezes the base model weights and trains only small adapter matrices injected into the attention layers resulting in ~147K trainable parameters out of 82M total (0.18%).
  
 ### Why distilgpt2 over larger models?
 The Kaggle P100 GPU had CUDA kernel incompatibility with quantized models (Mistral-7B, OPT-1.3B). distilgpt2 was chosen for reliability , it runs in float32 on CPU and completes training in ~12 minutes. The pipeline is fully model-agnostic and would produce significantly better outputs with GPT2-medium or Mistral-7B on a compatible GPU.
@@ -26,7 +26,7 @@ The Kaggle P100 GPU had CUDA kernel incompatibility with quantized models (Mistr
 | `data_clean.jsonl` | 799 | Full training set — cleaned, deduplicated |
 
  ### Why not train on just the 40 required examples?
-Training a causal LM on 40 samples causes **catastrophic overfitting** — the model
+Training a causal LM on 40 samples causes **catastrophic overfitting**  the model
 memorises input-output pairs verbatim and fails on any rephrased input. The 799-example
 `data_clean.jsonl` was built to avoid this, covering 14 distinct support categories with
 varied phrasing. Even so, 799 is still a small dataset for this task , production quality
@@ -117,7 +117,7 @@ Loss decreased consistently across all 3 epochs which means model is learning, n
 | ROUGE-L | 0.1760 |
 | Corpus BLEU | 0.0189 |
  
-**Note:** Low BLEU/ROUGE scores are expected and do not indicate failure. Polite rewrites are semantically open-ended — there are dozens of valid ways to express empathy for the same blunt input. These metrics measure n-gram overlap with one specific reference output, penalising valid alternative phrasings. Qualitative evaluation is the primary measure of success for this task.
+**Note:** Low BLEU/ROUGE scores are expected and do not indicate failure. Polite rewrites are semantically open-ended , there are dozens of valid ways to express empathy for the same blunt input. These metrics measure n-gram overlap with one specific reference output, penalising valid alternative phrasings. Qualitative evaluation is the primary measure of success for this task.
  
 ---
  
